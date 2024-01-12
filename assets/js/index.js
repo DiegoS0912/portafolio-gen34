@@ -102,3 +102,27 @@ function changeTheme (bool) {
     window.localStorage.removeItem('theme')
   }
 }
+
+/* Scroll Section ID */
+const sections = document.querySelectorAll('section[id]')
+
+let prevPos = window.scrollY
+
+window.addEventListener('scroll', function () {
+  const currentPos = window.scrollY
+
+  for (const section of sections) {
+    const sectionHeight = section.offsetHeight
+    const sectionTop = section.offsetTop - 200
+    const sectionId = section.getAttribute('id')
+    const currentElement = document.querySelector(`.list-link[href*='${sectionId}']`)
+
+    if (prevPos > sectionTop && prevPos <= sectionTop + sectionHeight) {
+      currentElement.parentElement.classList.add('active')
+    } else {
+      currentElement.parentElement.classList.remove('active')
+    }
+  }
+
+  prevPos = currentPos
+})
